@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Vue Router styling */
+.router-link-active {
+  @apply bg-gray-100 text-gray-900;
+}
+
+.router-link-exact-active {
+  @apply bg-gray-200 text-gray-900;
+}
