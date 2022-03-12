@@ -74,7 +74,7 @@ class Lead(models.Model):
         ('WY', 'Wyoming')
     ]
 
-    business_name = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255)
     street = models.CharField(max_length=32, blank=True, null=True)
     city = models.CharField(max_length=32, blank=True, null=True)
     zipcode = models.IntegerField(blank=True, null=True)
@@ -82,7 +82,8 @@ class Lead(models.Model):
     website = models.CharField(max_length=255, blank=True, null=True)
     estimated_value = models.IntegerField(blank=True, null=True)
 
-    contact_person = models.CharField(max_length=255)
+    contact_first_name = models.CharField(max_length=255)
+    contact_last_name = models.CharField(max_length=255)
     contact_phone = models.CharField(max_length=255)
     contact_ext = models.CharField(max_length=32, blank=True)
     # second_phone = models.CharField(max_length=32, blank=True)
@@ -98,15 +99,14 @@ class Lead(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.business_name
+        return self.company_name
 
 class Note(models.Model):
-    subject = models.CharField(max_length=255)
-    body = models.TextField(blank=True, null=True)
+    body = models.TextField()
     lead = models.ForeignKey(Lead, related_name='notes', on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='notes', null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.subject
+        return self.created_by.email + ' - ' + str(self.created_at)

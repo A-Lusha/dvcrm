@@ -2,11 +2,11 @@
   <div class="bg-white shadow overflow-hidden sm:rounded-md">
     <ul role="list" class="divide-y divide-gray-200">
       <li v-for="lead in leads" :key="lead.id">
-        <a href="#" class="block hover:bg-gray-50">
+        <RouterLink :to="{ name: 'LeadDetail', params: { id: lead.id }}" class="block hover:bg-gray-50">
           <div class="px-4 py-4 sm:px-6">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-indigo-600 truncate">
-                {{ lead.company }}
+                {{ lead.company_name }}
               </p>
               <div class="ml-2 flex-shrink-0 flex">
                 <p
@@ -23,7 +23,7 @@
                     class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  {{ lead.phone }}
+                  {{ lead.contact_phone }}
                 </p>
                 <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                   <LocationMarkerIcon
@@ -47,22 +47,15 @@
               </div>
             </div>
           </div>
-        </a>
+        </RouterLink>
       </li>
     </ul>
   </div>
 </template>
 
-<script>
+<script setup>
 import { CalendarIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/vue/solid'
-
-export default {
-  name: 'LeadList',
-  props: ['leads'],
-  components: {
-    CalendarIcon,
-    LocationMarkerIcon,
-    UsersIcon,
-  },
-}
+const props = defineProps({
+  leads: Array
+})
 </script>

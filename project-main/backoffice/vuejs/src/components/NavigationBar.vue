@@ -2,7 +2,7 @@
   <div class="min-h-full">
     <!-- Desktop view sidenav -->
     <div
-      class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-gray-100"
+      class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:pt-5 lg:pb-4 lg:bg-gray-100"
     >
       <div class="flex items-center flex-shrink-0 px-6">
         <img class="h-8 w-auto" src="@/assets/logo.png" alt="Workflow" />
@@ -196,7 +196,7 @@
       >
         <button
           type="button"
-          class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 lg:hidden"
+          class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none lg:hidden"
           @click="sidebarOpen = true"
         >
           <MenuAlt1Icon class="h-6 w-6" aria-hidden="true" />
@@ -291,7 +291,7 @@ import { ChevronRightIcon, DotsVerticalIcon, SelectorIcon } from '@heroicons/vue
 const navigation = [
   { name: 'Dashboard', to: { name: 'Dashboard' }, icon: PresentationChartBarIcon, current: true },
   { name: 'My Leads', to: { name: 'Leads' }, icon: BriefcaseIcon, current: false },
-  { name: 'Documents', to: '/404', icon: DocumentTextIcon, current: false },
+  // { name: 'Documents', to: '/404', icon: DocumentTextIcon, current: false },
 ]
 
 export default {

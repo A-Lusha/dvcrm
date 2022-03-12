@@ -94,7 +94,7 @@ DATABASES = {
  
 AUTH_USER_MODEL = 'account.CustomUser'
 
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_URL = '/admin/'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

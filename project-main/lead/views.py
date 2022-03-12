@@ -12,6 +12,7 @@ class LeadPagination(PageNumberPagination):
 class LeadViewSet(viewsets.ModelViewSet):
     serializer_class = LeadSerializer
     queryset = Lead.objects.all().order_by('created_at')
+
     pagination_class = LeadPagination
     filter_backends = (filters.SearchFilter,)
     search_fields = ('business_name', 'contact_person')
@@ -41,7 +42,16 @@ class LeadViewSet(viewsets.ModelViewSet):
         
         # filter assigned user
         assigned_to = self.request.query_params.get('assigned_to')
-        if assigned_to: queryset = queryset.filter(assigned_to=assigned_to) 
+        if assigned_to == 'all': 
+            queryset = queryset.filter()
+        elif assigned_to:
+            queryset = queryset.filter(assigned_to=assigned_to)
+        else:
+            queryset = queryset.filter(assigned_to=self.request.user)
+
+        # filter by status
+        status = self.request.query_params.get('status')
+        if status: queryset = queryset.filter(status=status) 
         
         return queryset
 
@@ -53,7 +63,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all().order_by('created_at')
     pagination_class = NotePagination
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('subject', 'body')
+    search_fields = ('body',)
     
     def perform_create(self, serializer):
         # TODO: add permissions to this and perform_update

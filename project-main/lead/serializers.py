@@ -7,7 +7,7 @@ from .models import Lead, Note
 class LeadSerializer(serializers.ModelSerializer):
     assigned_to = UserSerializer(read_only=True)
     branch = BranchSerializer(read_only=True)
-    status = serializers.ChoiceField(choices=Lead.STATUS_CHOICES)
+    status = serializers.ChoiceField(choices=Lead.STATUS_CHOICES, default=Lead.NEW)
     
     class Meta:
         model = Lead
@@ -18,13 +18,21 @@ class LeadSerializer(serializers.ModelSerializer):
         )
         fields = (
             'id',
-            'business_name',
-            'contact_person',
+
+            'company_name',
+            'street',
+            'city',
+            'zipcode',
+            'state',
+            'website',
+            'estimated_value',
+
+            'contact_first_name',
+            'contact_last_name',
             'contact_email',
             'contact_phone',
             'contact_ext',
-            'website',
-            'estimated_value',
+            
             'status',
             'branch',
             'assigned_to',
