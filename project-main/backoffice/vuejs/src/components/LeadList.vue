@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow overflow-hidden sm:rounded-md">
+  <div class="bg-white sm:mx-5 shadow overflow-hidden sm:rounded-md">
     <ul role="list" class="divide-y divide-gray-200">
       <li v-for="lead in leads" :key="lead.id">
         <RouterLink :to="{ name: 'LeadDetail', params: { id: lead.id }}" class="block hover:bg-gray-50">

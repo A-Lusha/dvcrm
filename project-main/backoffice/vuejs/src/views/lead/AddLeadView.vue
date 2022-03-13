@@ -70,7 +70,7 @@ async function submitForm(e) {
                 <label for="website" class="block text-sm font-medium text-gray-700">Website</label>
                 <div class="mt-1 flex rounded-md shadow-sm">
                   <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 bg-gray-50 text-gray-500 text-sm"> http:// </span>
-                  <input type="url" name="website" id="website" class="field_no-errors flex-1 block w-full rounded-none rounded-r-md sm:text-sm" placeholder="www.example.com" />
+                  <input type="text" name="website" id="website" class="field_no-errors flex-1 block w-full rounded-none rounded-r-md sm:text-sm" placeholder="www.example.com" />
                 </div>
               </div>
 
@@ -169,7 +169,7 @@ async function submitForm(e) {
           <div class="px-4 py-5 bg-white sm:p-6 shadow overflow-hidden sm:rounded-md">
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
-                <label for="contact_first_name" class="block text-sm font-medium text-gray-700">Last name</label>
+                <label for="contact_first_name" class="block text-sm font-medium text-gray-700">First name</label>
                 <input type="text" name="contact_first_name" id="contact_first_name" class="mt-1 field_no-errors block w-full shadow-sm sm:text-sm rounded-md" />
               </div>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { axios } from '@/common/api.service.js'
-import { PlusCircleIcon } from '@heroicons/vue/solid'
+import { PlusSmIcon } from '@heroicons/vue/outline'
 import AppLeadList from '@/components/LeadList.vue'
 import { onMounted, ref, reactive } from 'vue'
 
@@ -14,6 +14,7 @@ const tabs = reactive([
   { name: 'Completed', query: 'demodone', current: false },
   { name: 'Sent', query: 'appstart', current: false },
   { name: 'Signed', query: 'appdone', current: false },
+  { name: 'Probation', query: 'probation', current: false },
 ])
 
 async function changeFilter(index) {
@@ -36,20 +37,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative mx-4 lg:mx-8 pb-5 border-b border-gray-200 sm:pb-0">
+  <div class="relative mx-6 lg:mx-8 pb-5 border-b border-gray-200 md:pb-0">
     <div class="flex items-center justify-between my-5 lg:my-10 h-11 md:block">
       <h3 class="text-3xl lg:text-6xl inline font-medium text-gray-800">My Leads</h3>
       <div class="md:absolute md:top-8 lg:top-12 md:right-0">
         <RouterLink
           :to="{ name: 'AddLead' }"
-          class="my-2 inline-flex py-2 px-3 items-center border border-transparent rounded-md shadow-sm font-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          New Lead <PlusCircleIcon class="ml-2 h-7 w-7" />
+          class="inline-flex items-center p-3 border border-transparent rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <PlusSmIcon class="h-6 w-6" aria-hidden="true" />
         </RouterLink>
       </div>
     </div>
     <div class="mt-6">
-      <div class="sm:hidden">
+      <div class="md:hidden">
         <label for="current-tab" class="sr-only">Filter by status</label>
         <select
           v-model="currentStatus"
@@ -63,7 +63,7 @@ onMounted(() => {
           </option>
         </select>
       </div>
-      <div class="hidden sm:block">
+      <div class="hidden md:block">
         <nav class="-mb-px flex space-x-8">
           <button
             v-for="(tab, index) in tabs"

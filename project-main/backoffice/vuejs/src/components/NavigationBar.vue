@@ -10,10 +10,10 @@
       </div>
       <div class="mt-3 h-0 flex-1 flex flex-col overflow-y-auto">
         <!-- User account dropdown -->
-        <Menu as="div" class="px-3 relative inline-block text-left">
+        <Menu as="div" class="px-2 relative inline-block text-left">
           <div>
             <MenuButton
-              class="group w-full bg-gray-100 rounded-md px-3.5 my-2 py-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-purple-500"
+              class="group w-full bg-gray-100 rounded-md p-2 my-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-purple-500"
             >
               <span class="flex w-full justify-between items-center">
                 <span class="flex min-w-0 items-center justify-between space-x-3">
