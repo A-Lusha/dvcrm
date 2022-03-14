@@ -1,9 +1,9 @@
 <script setup>
 import { axios } from '@/common/api.service.js'
 import { formatDate } from '@/common/datetimeFormat.js'
+import { TrashIcon } from '@heroicons/vue/outline'
 import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { TrashIcon } from '@heroicons/vue/outline'
 
 const route = useRoute()
 const lead = reactive({})
@@ -61,10 +61,10 @@ onMounted(() => {
   // Retrieve lead data
   axios
     .get(`/api/v1/leads/${route.params.id}/`)
-    .then((response) => {
+    .then(response => {
       Object.assign(lead, response.data)
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error)
     })
   loadNotes()
@@ -178,4 +178,3 @@ onMounted(() => {
     </section>
   </div>
 </template>
-
