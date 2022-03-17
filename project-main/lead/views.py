@@ -1,3 +1,4 @@
+from http import client
 from rest_framework import viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 
@@ -21,25 +22,47 @@ class LeadViewSet(viewsets.ModelViewSet):
         serializer.save(created_by=user, assigned_to=user, branch=user.branch)
     
     def get_queryset(self):
+        # TODO: add permissions to this
         queryset = super().get_queryset()
+        query_params = self.request.query_params
+
+        # filter by archived field; exclude by default
+        archived = query_params.get('archived')
+        match archived:
+            case 'only':
+                queryset = queryset.filter(archived=True)
+            case 'include':
+                pass
+            case _:
+                queryset = queryset.exclude(status=False)
+
+        # filter by client status; exclude by default
+        client = query_params.get('client')
+        match client:
+            case 'only':
+                queryset = queryset.filter(status=Lead.CLIENT)
+            case 'include':
+                pass
+            case _:
+                queryset = queryset.exclude(status=Lead.CLIENT)
+
+        # filter by status
+        status = query_params.get('status')
+        if status: queryset = queryset.filter(status=status) 
 
         # filter by branch
-        branch = self.request.query_params.get('branch')
+        branch = query_params.get('branch')
         if branch: queryset = queryset.filter(branch__id=branch)
         
-        # filter by assigned user
-        assigned_to = self.request.query_params.get('assigned_to')
+        # filter by assigned user; self by default
+        assigned_to = query_params.get('assigned_to')
         if assigned_to == 'all': 
-            queryset = queryset.filter()
+            pass
         elif assigned_to:
             queryset = queryset.filter(assigned_to=assigned_to)
         else:
             queryset = queryset.filter(assigned_to=self.request.user)
 
-        # filter by status
-        status = self.request.query_params.get('status')
-        if status: queryset = queryset.filter(status=status) 
-        
         return queryset
 
 class NotePagination(PageNumberPagination):

@@ -38,6 +38,7 @@ class LeadSerializer(serializers.ModelSerializer):
             'assigned_to',
             'created_at',
             'modified_at',
+            'archived'
         )
 
 class NoteSerializer(serializers.ModelSerializer):

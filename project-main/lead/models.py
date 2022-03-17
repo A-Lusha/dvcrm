@@ -9,6 +9,7 @@ class Lead(models.Model):
     APPSTART = 'appstart'
     APPDONE = 'appdone'
     PROBATION = 'probation'
+    CLIENT = 'client'
 
     STATUS_CHOICES = [
         (NEW, 'New'),
@@ -17,7 +18,8 @@ class Lead(models.Model):
         (DEMODONE, 'Demo completed'),
         (APPSTART, 'Application Sent'),
         (APPDONE, 'Application Signed'),
-        (PROBATION, 'Probation')
+        (PROBATION, 'Probation'),
+        (CLIENT, 'Client')
     ]
 
     STATE_CHOICES = [
@@ -97,6 +99,7 @@ class Lead(models.Model):
     created_by = models.ForeignKey(User, related_name='leads', null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    archived = models.BooleanField(default=False)
 
     def __str__(self):
         return self.company_name
