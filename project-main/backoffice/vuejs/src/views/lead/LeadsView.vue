@@ -5,7 +5,7 @@ import AppLeadList from '@/components/LeadList.vue'
 import { onMounted, ref, reactive } from 'vue'
 
 const currentStatus = ref(0)
-const leads = ref([])
+const leads = ref({ page: 1, pageSize: 8 })
 const tabs = reactive([
   { name: 'All', query: '', current: true },
   { name: 'New', query: 'newlead', current: false },
@@ -17,24 +17,28 @@ const tabs = reactive([
   { name: 'Probation', query: 'probation', current: false },
 ])
 
+async function changePage(page) {
+  leads.value.page = leads.value.page + page
+  getLeads()
+}
 async function changeFilter(index) {
   // Change which filter is visually active
   for (const [i, tab] of tabs.entries()) tab.current = i !== index ? false : true
   currentStatus.value = index
+  leads.value.page = 1
   getLeads()
 }
-
 async function getLeads() {
-  const url = `/api/v1/leads/?status=${tabs[currentStatus.value].query}`
-  leads.value = await axios
+  const url = `/api/v1/leads/?page=${leads.value.page}&status=${tabs[currentStatus.value].query}`
+  await axios
     .get(url)
-    .then((r) => r.data.results)
+    .then(({ data }) => {
+      Object.assign(leads.value, data)
+    })
     .catch((e) => console.log(e.message))
 }
 
-onMounted(() => {
-  getLeads()
-})
+onMounted(getLeads)
 </script>
 
 <template>
@@ -85,5 +89,42 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <AppLeadList :leads="leads" />
+  <AppLeadList :leads="leads.results" />
+  <nav
+    class="bg-inherit px-4 py-3 flex items-center mx-6 lg:mx-8 justify-between border-t border-gray-200 sm:px-6"
+    aria-label="Pagination"
+    v-if="leads.count > leads.pageSize"
+  >
+    <div class="hidden sm:block">
+      <p class="text-sm text-gray-700">
+        Showing
+        <span class="font-medium">{{ (leads.page - 1) * leads.pageSize + 1 }}</span>
+        to
+        <span class="font-medium">{{
+          (leads.page - 1) * leads.pageSize + leads.results.length
+        }}</span>
+        of
+        <span class="font-medium">{{ leads.count }}</span>
+        results
+      </p>
+    </div>
+    <div class="flex-1 flex justify-between sm:justify-end">
+      <button
+        :disabled="!leads.previous"
+        type="button"
+        @click.prevent="changePage(-1)"
+        class="disabled:opacity-80 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+      >
+        Previous
+      </button>
+      <button
+        :disabled="!leads.next"
+        type="button"
+        @click.prevent="changePage(1)"
+        class="disabled:opacity-80 ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+      >
+        Next
+      </button>
+    </div>
+  </nav>
 </template>
