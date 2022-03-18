@@ -26,9 +26,10 @@ async function changeFilter(index) {
 
 async function getLeads() {
   const url = `/api/v1/leads/?status=${tabs[currentStatus.value].query}`
-  leads.value = await axios.get(url)
-  .then(r => r.data.results)
-  .catch(e => console.log(e.message))
+  leads.value = await axios
+    .get(url)
+    .then((r) => r.data.results)
+    .catch((e) => console.log(e.message))
 }
 
 onMounted(() => {
@@ -43,7 +44,8 @@ onMounted(() => {
       <div class="md:absolute md:top-8 lg:top-12 md:right-0">
         <RouterLink
           :to="{ name: 'AddLead' }"
-          class="inline-flex items-center p-3 border border-transparent rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          class="inline-flex items-center p-3 border border-transparent rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
           <PlusSmIcon class="h-6 w-6" aria-hidden="true" />
         </RouterLink>
       </div>

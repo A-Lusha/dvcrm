@@ -89,6 +89,6 @@ class NoteViewSet(viewsets.ModelViewSet):
 
         # filter assigned user
         created_by = self.request.query_params.get('created_by')
-        if created_by: queryset = queryset.filter(created_by=created_by) 
+        # if created_by: queryset = queryset.filter(created_by=created_by) 
         
         return queryset

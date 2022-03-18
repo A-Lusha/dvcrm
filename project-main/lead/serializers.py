@@ -8,7 +8,7 @@ class LeadSerializer(serializers.ModelSerializer):
     assigned_to = UserSerializer(read_only=True)
     branch = BranchSerializer(read_only=True)
     status = serializers.ChoiceField(choices=Lead.STATUS_CHOICES, default=Lead.NEW)
-    
+    status_display = serializers.SerializerMethodField()
     class Meta:
         model = Lead
         read_only_fields = (
@@ -34,12 +34,16 @@ class LeadSerializer(serializers.ModelSerializer):
             'contact_ext',
             
             'status',
+            'status_display',
             'branch',
             'assigned_to',
             'created_at',
             'modified_at',
             'archived'
         )
+    
+    def get_status_display(self, obj):
+        return obj.get_status_display()
 
 class NoteSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)
