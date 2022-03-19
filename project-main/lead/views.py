@@ -70,7 +70,7 @@ class NotePagination(PageNumberPagination):
 
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
-    queryset = Note.objects.all().order_by('created_at')
+    queryset = Note.objects.all().order_by('-created_at')
     pagination_class = NotePagination
     filter_backends = (filters.SearchFilter,)
     search_fields = ('body',)
