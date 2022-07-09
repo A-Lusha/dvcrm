@@ -100,9 +100,7 @@ onMounted(getLeads)
         Showing
         <span class="font-medium">{{ (leads.page - 1) * leads.pageSize + 1 }}</span>
         to
-        <span class="font-medium">{{
-          (leads.page - 1) * leads.pageSize + leads.results.length
-        }}</span>
+        <span class="font-medium">{{ leads.count % (leads.page * leads.results.length) }}</span>
         of
         <span class="font-medium">{{ leads.count }}</span>
         results

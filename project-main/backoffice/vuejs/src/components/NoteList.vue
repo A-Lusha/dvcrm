@@ -7,14 +7,12 @@ import { onMounted, reactive } from 'vue'
 
 const notes = reactive({ results: [] })
 const route = useRoute()
-const props = defineProps(['leadID'])
 
 async function loadNotes() {
   axios
     .get(`/api/v1/notes/?lead=${route.params.id}`)
     .then((response) => {
       Object.assign(notes, response.data)
-      console.log(props.leadID)
     })
     .catch((error) => {
       console.log(error)
@@ -125,7 +123,6 @@ onMounted(loadNotes())
           />
           <!-- Spacer element to match the height of the toolbar -->
           <div class="py-2 bg-white" aria-hidden="true">
-            <!-- Matches height of button in toolbar (1px border + 36px content height) -->
             <div class="py-px">
               <div class="h-9" />
             </div>

@@ -169,7 +169,7 @@ onMounted(loadLead)
                     {{ lead.contact_last_name }}
                   </span>
                 </p>
-                <div v-if="editingLead" class="flex -space-x-px">
+                <div v-if="editingLead" class="flex space-x-1">
                   <!-- First Name -->
                   <div class="w-1/2 border-b border-gray-300 focus-within:border-indigo-600">
                     <input
@@ -213,7 +213,7 @@ onMounted(loadLead)
                         class="block w-full border-0 border-b border-transparent bg-gray-50 focus:border-indigo-600 focus:ring-0"
                       />
                     </div>
-                    <div class="flex -space-x-px">
+                    <div class="flex space-x-1">
                       <!-- City -->
                       <div class="w-1/2 border-b border-gray-300 focus-within:border-indigo-600">
                         <input
